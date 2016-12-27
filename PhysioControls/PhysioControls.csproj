@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D1990EE4-4298-491C-9671-5223DA28FF36}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PhysioControls</RootNamespace>
+    <AssemblyName>PhysioControls</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.4.3.1\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="ReachFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Behavioural\Expand.cs" />
+    <Compile Include="Behavioural\ExpandEventArgs.cs" />
+    <Compile Include="Behavioural\IExpandHandler.cs" />
+    <Compile Include="Behavioural\IZoomAndPanHandler.cs" />
+    <Compile Include="Behavioural\PickAndDrag.cs" />
+    <Compile Include="Behavioural\IPickAndDragHandler.cs" />
+    <Compile Include="Behavioural\PickAndDragInfo.cs" />
+    <Compile Include="Behavioural\ZoomAndPan.cs" />
+    <Compile Include="Behavioural\ZoomAndPanInfo.cs" />
+    <Compile Include="ChangeTracking\Changeset.cs" />
+    <Compile Include="ChangeTracking\ChangesetManager.cs" />
+    <Compile Include="ChangeTracking\PropertyChangeMarker.cs" />
+    <Compile Include="Collections\EnhancedObservableCollection.cs" />
+    <Compile Include="EntityDataModel\EntityCollectionObserver.cs" />
+    <Compile Include="EntityDataModel\Page.cs" />
+    <Compile Include="EntityDataModel\Project.cs" />
+    <Compile Include="Managers\DirtChecker.cs" />
+    <Compile Include="Managers\IFileProjectManager.cs" />
+    <Compile Include="Managers\FileProjectManager.cs" />
+    <Compile Include="Managers\ProjectPersister.cs" />
+    <Compile Include="EntityDataModel\PhysioProject.Designer.cs">
+      <DependentUpon>PhysioProject.edmx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Managers\SdfProjectManager.cs" />
+    <Compile Include="Managers\TrackingSdfManager.cs" />
+    <Compile Include="Printing\PagePrinter.cs" />
+    <Compile Include="Properties\Strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="RelayCommand.cs" />
+    <Compile Include="Behavioural\ContextMenuTracker.cs" />
+    <Compile Include="ChangeTracking\CollectionChange.cs" />
+    <Compile Include="ChangeTracking\IPropertyChange.cs" />
+    <Compile Include="ChangeTracking\PropertyChange.cs" />
+    <Compile Include="Utilities\EdmBridge.cs" />
+    <Compile Include="Utilities\EdmHelper.cs" />
+    <Compile Include="Utilities\GeometryHelper.cs" />
+    <Compile Include="Utilities\NameGenerator.cs" />
+    <Compile Include="Utilities\SubNodesOrganiser.cs" />
+    <Compile Include="Utilities\WpfTreeHelper.cs" />
+    <Compile Include="ViewModel\BaseNodeViewModel.cs" />
+    <Compile Include="ViewModel\ChangesetViewModel.cs" />
+    <Compile Include="ViewModel\CommandViewModel.cs" />
+    <Compile Include="ViewModel\CommentsViewModel.cs" />
+    <Compile Include="ViewModel\GlobalViewModel.cs" />
+    <Compile Include="ViewModel\IDraggableViewModel.cs" />
+    <Compile Include="ViewModel\ISelectableViewModel.cs" />
+    <Compile Include="ViewModel\ProjectViewModel.cs" />
+    <Compile Include="ViewModel\SubNodeViewModel.cs" />
+    <Compile Include="Windows\NodePropertyWindow.xaml.cs">
+      <DependentUpon>NodePropertyWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\PageViewModel.cs" />
+    <Compile Include="ViewModel\NodeViewModel.cs" />
+    <Compile Include="ViewModel\DataObjectViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="View\NodeView.xaml.cs">
+      <DependentUpon>NodeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SubNodeView.xaml.cs">
+      <DependentUpon>SubNodeView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="View\ViewResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\NodePropertyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PhysioPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Compile Include="PhysioPage.xaml.cs">
+      <DependentUpon>PhysioPage.xaml</DependentUpon>
+    </Compile>
+    <Page Include="View\NodeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PageResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SubNodeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="App.config" />
+    <None Include="EntityDataModel\PhysioProject.edmx.sqlce" />
+    <None Include="packages.config" />
+    <EntityDeploy Include="EntityDataModel\PhysioProject.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>PhysioProject.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="EntityDataModel\PhysioProject.edmx.diagram">
+      <DependentUpon>PhysioProject.edmx</DependentUpon>
+    </None>
+    <None Include="Properties\DataSources\PhysioControls.EntityDataModel.PhysioProjectContainer.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bad49a00c50d41638ed77c485080af39" Name="Diagram1" >
+        <EntityTypeShape EntityType="PhysioProject.DataObject" Width="1.5" PointX="2.5" PointY="0.5" />
+        <EntityTypeShape EntityType="PhysioProject.BaseNode" Width="1.5" PointX="1.75" PointY="2.875" />
+        <InheritanceConnector EntityType="PhysioProject.BaseNode" />
+        <EntityTypeShape EntityType="PhysioProject.Node" Width="1.5" PointX="0.5" PointY="4.75" />
+        <InheritanceConnector EntityType="PhysioProject.Node" />
+        <EntityTypeShape EntityType="PhysioProject.SubNode" Width="1.5" PointX="4" PointY="4.75" />
+        <InheritanceConnector EntityType="PhysioProject.SubNode" />
+        <AssociationConnector Association="PhysioProject.BaseNodeSubNode" />
+        <EntityTypeShape EntityType="PhysioProject.Page" Width="1.5" PointX="4.75" PointY="1.5" />
+        <AssociationConnector Association="PhysioProject.PageDataObject" />
+        <EntityTypeShape EntityType="PhysioProject.Project" Width="1.5" PointX="7.625" PointY="1.375" />
+        <AssociationConnector Association="PhysioProject.ProjectPage" />
+        <InheritanceConnector EntityType="PhysioProject.Page" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

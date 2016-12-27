@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="PhysioControls.PhysioPage"
+             x:Name="physioPageControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Behavioural="clr-namespace:PhysioControls.Behavioural" mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary Source="PageResources.xaml" />
+    </UserControl.Resources>
+    <Canvas x:Name="canvas" Behavioural:PickAndDrag.IsPickAndDraggable="True"
+            Behavioural:PickAndDrag.PickAndDragHandler="{Binding}"
+            Behavioural:PickAndDrag.IsPickableWithBox="True"
+            Behavioural:Expand.IsExpandable="True"
+            Behavioural:Expand.ExpandHandler="{Binding}"
+            Behavioural:ZoomAndPan.IsZoomAndPannable="True"
+            Behavioural:ZoomAndPan.ZoomAndPanHandler="{Binding}">
+        <Canvas.Background>
+            <ImageBrush ImageSource="{Binding Path=BackgroundImage}"/>
+        </Canvas.Background>
+        <Canvas.Style>
+            <Style>
+                <Setter Property="Canvas.ContextMenu">
+                    <Setter.Value>
+                        <!-- 
+                            An Excellent article about context menu command binding,
+                            http://wpftutorial.net/RoutedCommandsInContextMenu.html 
+            
+                            As we are using relay commands now, so CommandTarget which could be the following for
+                            climbing up to the canvas tag is not needed
+                                CommandTarget="{Binding Path=PlacementTarget, 
+                                                RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type ContextMenu}}}"
+                        -->
+                        <ContextMenu ItemsSource="{Binding Path=AvailableCommands}" Behavioural:ContextMenuTracker.TrackOpenLocation="True" 
+                                     Visibility="{Binding Path=ContextMenuVisibility}" IsEnabled="{Binding Path=IsContextMenuEnabled}">
+                            <ContextMenu.ItemTemplate>
+                                <DataTemplate>
+                                    <MenuItem Header="{Binding Path=DisplayName}" Command="{Binding Path=Command}" 
+                                              IsCheckable="{Binding Path=IsCheckable}"
+                                              IsChecked="{Binding Path=IsChecked}"
+                                  CommandParameter="{Binding Path=(Behavioural:ContextMenuTracker.OpenLocation), 
+                                        RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type ContextMenu}}}"
+                                  />
+                                </DataTemplate>
+                            </ContextMenu.ItemTemplate>
+                        </ContextMenu>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=IsContextMenuEnabled}" Value="False">
+                        <Setter Property="Canvas.ContextMenu" Value="{x:Null}"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Canvas.Style>
+        <Rectangle Canvas.Left="{Binding Path=SelectBox.Left}" Canvas.Top="{Binding Path=SelectBox.Top}" 
+                   Width="{Binding Path=SelectBox.Width}" Height="{Binding Path=SelectBox.Height}"
+                   Visibility="{Binding Path=SelectBoxVisibility}" Stroke="Black"/>
+        <ItemsControl IsTabStop="False" ItemsSource="{Binding Path=DataObjects}" Margin="0,0">
+        </ItemsControl>
+    </Canvas>
+</UserControl>

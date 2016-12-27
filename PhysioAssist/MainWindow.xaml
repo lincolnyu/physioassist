@@ -1,0 +1,83 @@
+﻿<Window x:Class="PhysioAssist.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:PhysioControls="clr-namespace:PhysioControls;assembly=PhysioControls" 
+        xmlns:local="clr-namespace:PhysioAssist"
+        Name="MainPhysioWindow"
+        Title="PhysioAssist" Height="472" Width="357" WindowStartupLocation="CenterScreen" Closing="MainPhysioWindowClosing" >
+    <Window.Resources>
+        <ResourceDictionary Source="AppResources.xaml"/>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="local:AppCommands.New" Executed="NewCommandExecuted"/>
+        <CommandBinding Command="local:AppCommands.Open" Executed="OpenCommandExecuted"/>
+        <CommandBinding Command="local:AppCommands.Exit" Executed="ExitCommandExecuted"/>
+        <CommandBinding Command="local:AppCommands.Save" Executed="SaveCommandExecuted"/>
+        <CommandBinding Command="local:AppCommands.SaveAs" Executed="SaveAsCommandExecuted"/>
+        <CommandBinding Command="local:AppCommands.Print" Executed="PrintCommandExecuted"/>
+        <CommandBinding Command="local:AppCommands.PrintPreview" Executed="PrintPreviewCommandExecuted"/>
+        <CommandBinding Command="local:AppCommands.NewPage" Executed="NewPageCommandExecuted"/>
+        <CommandBinding Command="local:AppCommands.NextPage" Executed="NextPageCommandExecuted"/>
+        <CommandBinding Command="local:AppCommands.PrevPage" Executed="PrevPageCommandExecuted"/>
+        <CommandBinding Command="local:AppCommands.RemovePage" Executed="RemovePageCommandExecuted"/>
+        <CommandBinding Command="local:AppCommands.SetImage" Executed="SetImageCommandExecuted"/>
+        <CommandBinding Command="local:AppCommands.About" Executed="AboutCommandExecuted"/>
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Key="N" Modifiers="Control" Command="local:AppCommands.New"/>
+        <KeyBinding Key="O" Modifiers="Control" Command="local:AppCommands.Open"/>
+        <KeyBinding Key="S" Modifiers="Control" Command="local:AppCommands.Save"/>
+    </Window.InputBindings>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0" IsMainMenu="True">
+            <MenuItem Header="_File">
+                <MenuItem Command="local:AppCommands.New"/>
+                <MenuItem Command="local:AppCommands.Open"/>
+                <MenuItem Command="local:AppCommands.Save"/>
+                <MenuItem Command="local:AppCommands.SaveAs"/>
+                <Separator/>
+                <MenuItem Command="local:AppCommands.PrintPreview"/>
+                <MenuItem Command="local:AppCommands.Print"/>
+                <Separator/>
+                <MenuItem Command="local:AppCommands.Exit"/>
+            </MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Command="local:AppCommands.NewPage"/>
+                <MenuItem Command="local:AppCommands.RemovePage"/>
+                <MenuItem Command="local:AppCommands.SetImage"/>
+                <MenuItem IsCheckable="True" Header="Edit Mode"
+                          IsChecked="{Binding ElementName=MainPhysioWindow, Path=IsInEditMode, Mode=TwoWay}"/>
+            </MenuItem>
+            <MenuItem Header="_View">
+                <MenuItem Command="local:AppCommands.NextPage"/>
+                <MenuItem Command="local:AppCommands.PrevPage"/>
+            </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem Command="local:AppCommands.About"/>
+            </MenuItem>
+        </Menu>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <TreeView Grid.Column="0" Name="ProjectHierarchy" 
+                    SelectedItemChanged="ProjectHierarchySelectedItemChanged">
+            </TreeView>
+            <GridSplitter Grid.Column="0" Width="5"/>
+            <PhysioControls:PhysioPage Grid.Column="1" Name="PhysioPage"/>
+            <GridSplitter Grid.Column="1" Width="5"/>
+            <ListView Grid.Column="2" Name="ChangeList" ItemsSource="{Binding Path=Changesets}" 
+                      SelectionMode="Single" SelectionChanged="ListViewSelectionChanged" 
+                      SelectedIndex="{Binding Path=SelectedChangesetIndex, Mode=OneWay}"
+                      PreviewMouseLeftButtonDown="ListViewPreviewMouseLeftButtonDown"
+                      PreviewMouseRightButtonDown="ListViewPreviewMouseRightButtonDown">
+            </ListView>
+        </Grid>
+    </Grid>
+</Window>

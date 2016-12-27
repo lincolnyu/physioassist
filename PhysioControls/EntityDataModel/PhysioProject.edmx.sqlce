@@ -1,0 +1,226 @@
+
+-- --------------------------------------------------
+-- Entity Designer DDL Script for SQL Server Compact Edition
+-- --------------------------------------------------
+-- Date Created: 10/09/2012 00:04:49
+-- Generated from EDMX file: C:\Users\Administrator\Documents\Projects\quanbenSoft\PhysioAssist\PhysioAssist\PhysioControls\EntityDataModel\PhysioProject.edmx
+-- --------------------------------------------------
+
+
+-- --------------------------------------------------
+-- Dropping existing FOREIGN KEY constraints
+-- NOTE: if the constraint does not exist, an ignorable error will be reported.
+-- --------------------------------------------------
+
+    ALTER TABLE [DataObjects_SubNode] DROP CONSTRAINT [FK_BaseNodeSubNode];
+GO
+    ALTER TABLE [DataObjects] DROP CONSTRAINT [FK_PageDataObject];
+GO
+    ALTER TABLE [DataObjects_Page] DROP CONSTRAINT [FK_ProjectPage];
+GO
+    ALTER TABLE [DataObjects_BaseNode] DROP CONSTRAINT [FK_BaseNode_inherits_DataObject];
+GO
+    ALTER TABLE [DataObjects_SubNode] DROP CONSTRAINT [FK_SubNode_inherits_BaseNode];
+GO
+    ALTER TABLE [DataObjects_Page] DROP CONSTRAINT [FK_Page_inherits_DataObject];
+GO
+    ALTER TABLE [DataObjects_Node] DROP CONSTRAINT [FK_Node_inherits_BaseNode];
+GO
+
+-- --------------------------------------------------
+-- Dropping existing tables
+-- NOTE: if the table does not exist, an ignorable error will be reported.
+-- --------------------------------------------------
+
+    DROP TABLE [Projects];
+GO
+    DROP TABLE [DataObjects];
+GO
+    DROP TABLE [DataObjects_BaseNode];
+GO
+    DROP TABLE [DataObjects_SubNode];
+GO
+    DROP TABLE [DataObjects_Page];
+GO
+    DROP TABLE [DataObjects_Node];
+GO
+
+-- --------------------------------------------------
+-- Creating all tables
+-- --------------------------------------------------
+
+-- Creating table 'Projects'
+CREATE TABLE [Projects] (
+    [Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'DataObjects'
+CREATE TABLE [DataObjects] (
+    [Id] int  NOT NULL,
+    [Name] nvarchar(4000)  NOT NULL,
+    [PageId] int  NULL
+);
+GO
+
+-- Creating table 'DataObjects_BaseNode'
+CREATE TABLE [DataObjects_BaseNode] (
+    [Comments] nvarchar(4000)  NOT NULL,
+    [CommentsLocation_X] float  NOT NULL,
+    [CommentsLocation_Y] float  NOT NULL,
+    [Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'DataObjects_SubNode'
+CREATE TABLE [DataObjects_SubNode] (
+    [ParentId] int  NULL,
+    [Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'DataObjects_Page'
+CREATE TABLE [DataObjects_Page] (
+    [ProjectId] int  NULL,
+    [BgImageUri] nvarchar(4000)  NULL,
+    [PageNo] int  NOT NULL,
+    [Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'DataObjects_Node'
+CREATE TABLE [DataObjects_Node] (
+    [Location_X] float  NOT NULL,
+    [Location_Y] float  NOT NULL,
+    [Size_X] float  NOT NULL,
+    [Size_Y] float  NOT NULL,
+    [HasSize] bit  NOT NULL,
+    [Id] int  NOT NULL
+);
+GO
+
+-- --------------------------------------------------
+-- Creating all PRIMARY KEY constraints
+-- --------------------------------------------------
+
+-- Creating primary key on [Id] in table 'Projects'
+ALTER TABLE [Projects]
+ADD CONSTRAINT [PK_Projects]
+    PRIMARY KEY ([Id] );
+GO
+
+-- Creating primary key on [Id] in table 'DataObjects'
+ALTER TABLE [DataObjects]
+ADD CONSTRAINT [PK_DataObjects]
+    PRIMARY KEY ([Id] );
+GO
+
+-- Creating primary key on [Id] in table 'DataObjects_BaseNode'
+ALTER TABLE [DataObjects_BaseNode]
+ADD CONSTRAINT [PK_DataObjects_BaseNode]
+    PRIMARY KEY ([Id] );
+GO
+
+-- Creating primary key on [Id] in table 'DataObjects_SubNode'
+ALTER TABLE [DataObjects_SubNode]
+ADD CONSTRAINT [PK_DataObjects_SubNode]
+    PRIMARY KEY ([Id] );
+GO
+
+-- Creating primary key on [Id] in table 'DataObjects_Page'
+ALTER TABLE [DataObjects_Page]
+ADD CONSTRAINT [PK_DataObjects_Page]
+    PRIMARY KEY ([Id] );
+GO
+
+-- Creating primary key on [Id] in table 'DataObjects_Node'
+ALTER TABLE [DataObjects_Node]
+ADD CONSTRAINT [PK_DataObjects_Node]
+    PRIMARY KEY ([Id] );
+GO
+
+-- --------------------------------------------------
+-- Creating all FOREIGN KEY constraints
+-- --------------------------------------------------
+
+-- Creating foreign key on [ParentId] in table 'DataObjects_SubNode'
+ALTER TABLE [DataObjects_SubNode]
+ADD CONSTRAINT [FK_BaseNodeSubNode]
+    FOREIGN KEY ([ParentId])
+    REFERENCES [DataObjects_BaseNode]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_BaseNodeSubNode'
+CREATE INDEX [IX_FK_BaseNodeSubNode]
+ON [DataObjects_SubNode]
+    ([ParentId]);
+GO
+
+-- Creating foreign key on [PageId] in table 'DataObjects'
+ALTER TABLE [DataObjects]
+ADD CONSTRAINT [FK_PageDataObject]
+    FOREIGN KEY ([PageId])
+    REFERENCES [DataObjects_Page]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PageDataObject'
+CREATE INDEX [IX_FK_PageDataObject]
+ON [DataObjects]
+    ([PageId]);
+GO
+
+-- Creating foreign key on [ProjectId] in table 'DataObjects_Page'
+ALTER TABLE [DataObjects_Page]
+ADD CONSTRAINT [FK_ProjectPage]
+    FOREIGN KEY ([ProjectId])
+    REFERENCES [Projects]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ProjectPage'
+CREATE INDEX [IX_FK_ProjectPage]
+ON [DataObjects_Page]
+    ([ProjectId]);
+GO
+
+-- Creating foreign key on [Id] in table 'DataObjects_BaseNode'
+ALTER TABLE [DataObjects_BaseNode]
+ADD CONSTRAINT [FK_BaseNode_inherits_DataObject]
+    FOREIGN KEY ([Id])
+    REFERENCES [DataObjects]
+        ([Id])
+    ON DELETE CASCADE ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Id] in table 'DataObjects_SubNode'
+ALTER TABLE [DataObjects_SubNode]
+ADD CONSTRAINT [FK_SubNode_inherits_BaseNode]
+    FOREIGN KEY ([Id])
+    REFERENCES [DataObjects_BaseNode]
+        ([Id])
+    ON DELETE CASCADE ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Id] in table 'DataObjects_Page'
+ALTER TABLE [DataObjects_Page]
+ADD CONSTRAINT [FK_Page_inherits_DataObject]
+    FOREIGN KEY ([Id])
+    REFERENCES [DataObjects]
+        ([Id])
+    ON DELETE CASCADE ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Id] in table 'DataObjects_Node'
+ALTER TABLE [DataObjects_Node]
+ADD CONSTRAINT [FK_Node_inherits_BaseNode]
+    FOREIGN KEY ([Id])
+    REFERENCES [DataObjects_BaseNode]
+        ([Id])
+    ON DELETE CASCADE ON UPDATE NO ACTION;
+GO
+
+-- --------------------------------------------------
+-- Script has ended
+-- --------------------------------------------------

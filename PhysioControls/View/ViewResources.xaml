@@ -1,0 +1,38 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:View="clr-namespace:PhysioControls.View">
+    <Style TargetType="View:NodeView">
+        <Setter Property="ToolTip" Value="{Binding Path=DisplayName}"></Setter>
+    </Style>
+    <Style TargetType="View:SubNodeView">
+        <Setter Property="ToolTip" Value="{Binding Path=DisplayName}"></Setter>
+    </Style>
+
+    <Canvas x:Key="CrossSign">
+        <Line X1="{Binding Path=Left}" Y1="{Binding Path=LocationOnCanvas.Y}" 
+                X2="{Binding Path=Right}" Y2="{Binding Path=LocationOnCanvas.Y}" Stroke="Black"/>
+        <Line X1="{Binding Path=LocationOnCanvas.X}" Y1="{Binding Path=Top}" 
+                X2="{Binding Path=LocationOnCanvas.X}" Y2="{Binding Path=Bottom}" Stroke="Black">
+            <Line.Style>
+                <Style>
+                    <Setter Property="Line.Visibility" Value="Visible"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=IsExpanded}" Value="True">
+                            <Setter Property="Line.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Line.Style>
+        </Line>
+        <Canvas.Style>
+            <Style>
+                <Setter Property="Canvas.Visibility" Value="Collapsed"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=HasSubNodes}" Value="True">
+                        <Setter Property="Canvas.Visibility" Value="Visible" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Canvas.Style>
+    </Canvas>
+</ResourceDictionary>

@@ -1,0 +1,47 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:ViewModel="clr-namespace:PhysioControls.ViewModel;assembly=PhysioControls">
+    <BitmapImage x:Key="Femur" UriSource="Pictures/femur.gif" />
+    <BitmapImage x:Key="Foot" UriSource="Pictures/foot.jpg" />
+    <DataTemplate DataType="{x:Type ViewModel:ChangesetViewModel}">
+        <TextBlock Text="{Binding Path=Description}"></TextBlock>
+    </DataTemplate>
+    
+    <Style TargetType="TreeViewItem">
+        <Setter Property="IsExpanded" Value="{Binding Path=IsExpanded, Mode=TwoWay}"/>
+        <Setter Property="IsSelected" Value="{Binding Path=IsSelectedOneWay, Mode=TwoWay}"/>
+    </Style>
+
+    <HierarchicalDataTemplate DataType="{x:Type ViewModel:ProjectViewModel}"
+                              ItemsSource="{Binding Path=Pages}">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Project: "/>
+            <TextBlock Text="{Binding Path=DisplayName}" />
+        </StackPanel>
+    </HierarchicalDataTemplate>
+
+    <HierarchicalDataTemplate DataType="{x:Type ViewModel:PageViewModel}"
+                              ItemsSource="{Binding Path=DataObjects}">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Page: "/>
+            <TextBlock Text="{Binding Path=DisplayName}" />
+        </StackPanel>
+    </HierarchicalDataTemplate>
+    
+    <HierarchicalDataTemplate DataType="{x:Type ViewModel:NodeViewModel}"
+                              ItemsSource="{Binding Path=SubNodes}">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Node: "/>
+            <TextBlock Text="{Binding Path=DisplayName}" />
+        </StackPanel>
+    </HierarchicalDataTemplate>
+    
+    <HierarchicalDataTemplate DataType="{x:Type ViewModel:SubNodeViewModel}"
+                              ItemsSource="{Binding Path=SubNodes}">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Sub-node: "/>
+            <TextBlock Text="{Binding Path=DisplayName}" />
+        </StackPanel>
+    </HierarchicalDataTemplate>
+
+</ResourceDictionary>

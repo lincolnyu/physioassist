@@ -1,0 +1,77 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="PhysioAssist.Windows.PrintSettings"
+        Title="Print Settings" Height="360.716" Width="363.956" ResizeMode="NoResize">
+    <Window.Resources>
+        <ResourceDictionary Source="WindowResources.xaml"/>
+    </Window.Resources>
+    <Grid DataContext="{Binding RelativeSource={RelativeSource AncestorType=Window}}">
+        <GroupBox Header="Paper Size" HorizontalAlignment="Left" Height="141" Margin="29,6,0,0" VerticalAlignment="Top" Width="298">
+            <Grid>
+                <Label Content="Paper type" HorizontalAlignment="Left" Margin="10,4,0,0" VerticalAlignment="Top"/>
+                <Label Content="Width" HorizontalAlignment="Left" Margin="10,0,0,50" VerticalAlignment="Bottom"/>
+                <Label Content="Height" HorizontalAlignment="Left" Margin="146,38,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.261,-0.682"/>
+                <ComboBox HorizontalAlignment="Left" Margin="106,6,0,0" VerticalAlignment="Top" Width="140">
+                    <ComboBox.ItemsSource>
+                        <Binding Path="AllPaperTypes" />
+                    </ComboBox.ItemsSource>
+                    <ComboBox.SelectedValue>
+                        <Binding Path="PaperType"/>
+                    </ComboBox.SelectedValue>
+                </ComboBox>
+                <TextBox HorizontalAlignment="Right" Margin="0,38,145,0" TextWrapping="Wrap" x:Name="txtPaperWidth" VerticalAlignment="Top" Width="75"
+                 Text="{Binding Path=PaperWidth, Mode=TwoWay, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.Style>
+                        <StaticResource ResourceKey="textBoxValidationStyle"/>
+                    </TextBox.Style>
+                </TextBox>
+                <TextBox HorizontalAlignment="Left" Margin="197,38,0,0" TextWrapping="Wrap" x:Name="txtPaperHeight" 
+                 VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.143,0.472"
+                 Text="{Binding Path=PaperHeight, Mode=TwoWay, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.Style>
+                        <StaticResource ResourceKey="textBoxValidationStyle"/>
+                    </TextBox.Style>
+                </TextBox>
+                <CheckBox Content="Match the content size with the page size" HorizontalAlignment="Left" Margin="20,99,0,0" VerticalAlignment="Top" Width="239"
+                          IsChecked="{Binding Path=MatchSize}"/>
+                <Label Content="DPI" HorizontalAlignment="Left" Margin="10,0,0,27" VerticalAlignment="Bottom"/>
+                <ComboBox HorizontalAlignment="Left" Margin="66,68,0,0" VerticalAlignment="Top" Width="126" x:Name="cmbDPIs"
+                          ItemsSource="{Binding Path=AllDPIs}" DisplayMemberPath="Name" SelectedValuePath="Value"
+                          SelectedValue="{Binding Path=SelectedDPI}" />
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="GroupBox" HorizontalAlignment="Left" Height="135" Margin="29,152,0,0" VerticalAlignment="Top" Width="298" Name="groupBoxPageRange">
+            <Grid>
+                <RadioButton Content="All pages" HorizontalAlignment="Left" Margin="16,12,0,0" VerticalAlignment="Top" GroupName="groupBoxPageRange"
+                             IsChecked="{Binding Path=PageRangeOption, Converter={StaticResource enumConverter}, ConverterParameter=AllPages}"/>
+                <RadioButton Content="Current page" HorizontalAlignment="Left" Margin="16,33,0,0" VerticalAlignment="Top" GroupName="groupBoxPageRange"
+                             IsChecked="{Binding Path=PageRangeOption, Converter={StaticResource enumConverter}, ConverterParameter=CurrentPage}"/>
+                <RadioButton Content="Custom pages (Example: 1-10, 16, 18, 20-25)" HorizontalAlignment="Left" Margin="16,54,0,0" VerticalAlignment="Top" 
+                             RenderTransformOrigin="0.213,1.5" GroupName="groupBoxPageRange" x:Name="rdCustomPages"
+                             IsChecked="{Binding Path=PageRangeOption, Converter={StaticResource enumConverter}, ConverterParameter=CustomPages}"/>
+                <TextBox HorizontalAlignment="Left" Height="24" Margin="122,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144"
+                         x:Name="txtPageRange">
+                    <TextBox.Text>
+                        <Binding Path="PageRangeText" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True"/>
+                    </TextBox.Text>
+                    <TextBox.Style>
+                        <Style TargetType="TextBox" BasedOn="{StaticResource ResourceKey=textBoxValidationStyle}">
+                            <Setter Property="IsEnabled" Value="False"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=rdCustomPages, Path=IsChecked}" Value="True">
+                                    <Setter Property="IsEnabled" Value="True"/>
+                                </DataTrigger>
+                                <Trigger Property="IsEnabled" Value="True">
+                                    <Setter Property="Text" Value="True"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+            </Grid>
+        </GroupBox>
+        <Button Content="_OK" HorizontalAlignment="Left" Margin="160,299,0,0" VerticalAlignment="Top" Width="75" IsDefault="True" Click="OkClick"/>
+        <Button Content="_Cancel" HorizontalAlignment="Left" Margin="252,299,0,0" VerticalAlignment="Top" Width="75" IsCancel="True" Click="CancelClick"/>
+    </Grid>
+</Window>

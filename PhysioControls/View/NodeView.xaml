@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="PhysioControls.View.NodeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary Source="ViewResources.xaml" />
+    </UserControl.Resources>
+    <Canvas x:Name="nodeCanvas">
+        <Canvas.Clip>
+            <RectangleGeometry Rect="{Binding Path=Page.ClientRect}" />
+        </Canvas.Clip>
+        <Ellipse Canvas.Left="{Binding Path=Left}" Canvas.Top="{Binding Path=Top}"
+             Width="{Binding Path=SizeOnCanvas.Width}" Height="{Binding Path=SizeOnCanvas.Height}">
+            <Ellipse.Style>
+                <Style>
+                    <Setter Property="Ellipse.Fill" Value="Green"/>
+                    <Style.Triggers>
+                        <Trigger Property="Ellipse.IsMouseOver" Value="True">
+                            <Setter Property="Ellipse.Fill" Value="Yellow"/>
+                        </Trigger>
+                        <DataTrigger Binding="{Binding Path=IsSubNodeSelected}" Value="True">
+                            <Setter Property="Ellipse.Fill" Value="Brown"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=IsSelected}" Value="True">
+                            <Setter Property="Ellipse.Fill" Value="Red"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Ellipse.Style>
+        </Ellipse>
+        <!-- TODO the following is a tentative and crude implementation, need to discuss with cibo for a better display -->
+        <StackPanel DataContext="{Binding Path=Comments}" Canvas.Left="{Binding Path=Left}" Canvas.Top="{Binding Path=Top}"
+                    Visibility="{Binding Path=Visibility}">
+            <StackPanel.Style>
+                <Style>
+                    <Setter Property="StackPanel.Background" Value="Yellow"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=IsSelected}" Value="True">
+                            <Setter Property="StackPanel.Background" Value="Red"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+            <TextBlock>
+                <TextBlock.Text>
+                    <Binding Path="Comments"/>
+                </TextBlock.Text>
+            </TextBlock>
+        </StackPanel>
+        <Line DataContext="{Binding Path=Comments}" X1="{Binding Path=LineX1}" Y1="{Binding Path=LineY1}"
+              X2="{Binding Path=LineX2}" Y2="{Binding Path=LineY2}" Stroke="Black" Visibility="{Binding Path=Visibility}"/>
+        <StaticResource ResourceKey="CrossSign"/>
+        <ItemsControl IsTabStop="False" ItemsSource="{Binding Path=SubNodes}" Margin="0,0" Visibility="{Binding Path=SubNodeVisibility}"/>
+    </Canvas>
+</UserControl>
